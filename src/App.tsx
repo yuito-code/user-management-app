@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { User } from "./types";
+import { getUsers, createUser, updateUser, deleteUser } from "./services/userApi";
 
 const App = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -12,16 +13,7 @@ const App = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          'https://jsonplaceholder.typicode.com/users'
-        );
-
-        if(!response.ok) {
-          throw new Error('ユーザーの取得に失敗しました');
-        }
-
-        const data: User[] = await response.json();
-        setUsers(data);
+        const data = await getUsers();
       } catch (error) {
         console.error(error);
         setError('ユーザーの取得に失敗しました');
@@ -38,69 +30,43 @@ const App = () => {
 
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
+    try {
+      const data = await createUser(newName, newEmail);
+      setUsers((prevUsers) => [...prevUsers, data]);
 
-    const response = await fetch(
-      "https://jsonplaceholder.typicode.com/users",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: newName,
-          email: newEmail,
-        }),
-      }
-    );
-
-    const data: User = await response.json();
-
-    setUsers((prevUsers) => [...prevUsers, data]);
-
-    setNewName('');
-    setNewEmail('');
-  }
+      setNewName('');
+      setNewEmail('');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleUpdate = async (id: number) => {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: "村上",
-        }),
-      }
-    );
+    try {
+      const data = await updateUser(id,'村上');
 
-    const data: User = await response.json();
-
-    setUsers((prevUsers) =>
-      prevUsers.map((user) =>
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
         user.id === id
           ? { ...user, name: data.name}
           :user
-      )
-    );
+        )
+      );
+    } catch (error) {
+    console.error(error);
+    }
   };
 
   const handleDelete = async (id: number) => {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    try {
+      await deleteUser(id)
 
-    if(!response.ok) {
-      throw new Error("ユーザーの削除に失敗しました");
+      setUsers((prevUsers) =>
+        prevUsers.filter((user) => user.id !== id)
+      );
+    } catch (error) {
+      console.error(error);
     }
-
-    setUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
   };
 
   if (error) {
