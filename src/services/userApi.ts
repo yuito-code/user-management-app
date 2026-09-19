@@ -55,7 +55,7 @@ export const updateUser = async (
 }
 
 export const deleteUser = async (id: number): Promise<void> => {
-  const response = await fetch(`{API_URL}/${id}`, {
+  const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   });
 

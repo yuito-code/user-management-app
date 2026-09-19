@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type { User } from "./types";
 import { getUsers, createUser, updateUser, deleteUser } from "./services/userApi";
+import UserList from "./components/UserList";
+import UserForm from "./components/UserForm";
 
 const App = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -14,6 +16,7 @@ const App = () => {
     const fetchUsers = async () => {
       try {
         const data = await getUsers();
+        setUsers(data);
       } catch (error) {
         console.error(error);
         setError('ユーザーの取得に失敗しました');
@@ -59,7 +62,7 @@ const App = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await deleteUser(id)
+      await deleteUser(id);
 
       setUsers((prevUsers) =>
         prevUsers.filter((user) => user.id !== id)
@@ -80,26 +83,13 @@ const App = () => {
   return (
     <div>
       <h1>ユーザー一覧</h1>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          placeholder="名前"
-        />
-
-        <input
-          type="text"
-          value={newEmail}
-          onChange={(e) => setNewEmail(e.target.value)}
-          placeholder="メールアドレス"
-        />
-
-        <button type="submit">
-          追加
-        </button>
-      </form>
+      <UserForm
+        newName={newName}
+        newEmail={newEmail}
+        onNameChange={setNewName}
+        onEmailChange={setNewEmail}
+        onSubmit={handleSubmit}
+      />
 
       <input
         type="text"
@@ -108,20 +98,11 @@ const App = () => {
         placeholder="名前で検索"
       />
 
-      {filteredUsers.map((user) => (
-        <div key={user.id}>
-          <p>{user.name}</p>
-          <p>{user.email}</p>
-
-          <button onClick={() => handleUpdate(user.id)}>
-            名前変更
-          </button>
-
-          <button onClick={() => handleDelete(user.id)}>
-            削除
-          </button>
-        </div>
-      ))}
+      <UserList
+        users={filteredUsers}
+        onUpdate={handleUpdate}
+        onDelete={handleDelete}
+      />
     </div>
   );
 };
