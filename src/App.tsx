@@ -1,75 +1,26 @@
-import { useEffect, useState } from "react";
-import type { User } from "./types";
-import { getUsers, createUser, updateUser, deleteUser } from "./services/userApi";
+import { useState } from "react";
+import { useUsers } from "./hooks/useUsers";
 import UserList from "./components/UserList";
 import UserForm from "./components/UserForm";
 
+
 const App = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const { users, loading, error, handleCreateUser, handleUpdateUser, handleDeleteUser} = useUsers();
   const [name, setName] = useState('');
   const [newName, setNewName] = useState('');
   const [newEmail, setNewEmail] = useState('');
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const data = await getUsers();
-        setUsers(data);
-      } catch (error) {
-        console.error(error);
-        setError('ユーザーの取得に失敗しました');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUsers();
-  }, []);
 
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(name.toLowerCase())
   );
 
-  const handleSubmit = async (e:React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const data = await createUser(newName, newEmail);
-      setUsers((prevUsers) => [...prevUsers, data]);
 
-      setNewName('');
-      setNewEmail('');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    await handleCreateUser(newName, newEmail);
 
-  const handleUpdate = async (id: number) => {
-    try {
-      const data = await updateUser(id,'村上');
-
-      setUsers((prevUsers) =>
-        prevUsers.map((user) =>
-        user.id === id
-          ? { ...user, name: data.name}
-          :user
-        )
-      );
-    } catch (error) {
-    console.error(error);
-    }
-  };
-
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteUser(id);
-
-      setUsers((prevUsers) =>
-        prevUsers.filter((user) => user.id !== id)
-      );
-    } catch (error) {
-      console.error(error);
-    }
+    setNewName("");
+    setNewEmail("");
   };
 
   if (error) {
@@ -100,8 +51,8 @@ const App = () => {
 
       <UserList
         users={filteredUsers}
-        onUpdate={handleUpdate}
-        onDelete={handleDelete}
+        onUpdate={handleUpdateUser}
+        onDelete={handleDeleteUser}
       />
     </div>
   );
