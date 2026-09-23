@@ -38,7 +38,7 @@ export const useUsers = () => {
       return true;
     } catch (error) {
       console.error(error);
-      setError("ユーザーの取得に失敗しました");
+      setError("ユーザーの作成に失敗しました");
       return false;
     }
   };

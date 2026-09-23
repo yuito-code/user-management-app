@@ -9,6 +9,7 @@ const App = () => {
   const [name, setName] = useState('');
   const [newName, setNewName] = useState('');
   const [newEmail, setNewEmail] = useState('');
+  const [formError, setFormError] = useState("");
 
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(name.toLowerCase())
@@ -17,23 +18,32 @@ const App = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setFormError("");
+
+    if (!newName.trim()) {
+      setFormError("名前を入力してください");
+      return;
+    }
+
+    if(!newEmail.trim()) {
+      setFormError("メールアドレスを入力してください");
+      return;
+    }
+
     await handleCreateUser(newName, newEmail);
 
     setNewName("");
     setNewEmail("");
   };
 
-  if (error) {
-    return <p>{error}</p>;
-  }
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <div>
       <h1>ユーザー一覧</h1>
+
+      {loading && <p>Loading...</p>}
+
+      {error && <p>{error}</p>}
+
       <UserForm
         newName={newName}
         newEmail={newEmail}
@@ -41,6 +51,8 @@ const App = () => {
         onEmailChange={setNewEmail}
         onSubmit={handleSubmit}
       />
+
+      {formError && <p>{formError}</p>}
 
       <input
         type="text"
