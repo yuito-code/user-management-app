@@ -2,12 +2,22 @@ import type { User } from "../types";
 
 const API_URL = "https://jsonplaceholder.typicode.com/users";
 
-export const getUsers = async(): Promise<User[]> => {
+export const getUsers = async(): Promise<User> => {
   const response = await fetch(API_URL);
 
   if(!response.ok) {
     throw new Error('ユーザーの取得に失敗しました');
   }
+  return response.json();
+};
+
+export const getUser = async (id: number): Promise<User> => {
+  const response = await fetch(`${API_URL}/${id}`);
+
+  if(!response.ok) {
+    throw new Error("ユーザーの取得に失敗しました");
+  }
+
   return response.json();
 };
 

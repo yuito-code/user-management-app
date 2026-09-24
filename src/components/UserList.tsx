@@ -1,4 +1,5 @@
 import type { User } from "../types";
+import { Link } from "react-router-dom";
 
 type UserListProps = {
   users: User[];
@@ -15,7 +16,9 @@ const UserList = ({
     <>
       {users.map((user) => (
         <div key={user.id}>
-          <p>{user.name}</p>
+          <Link to={`/users/${user.id}`}>
+            {user.name}
+          </Link>
           <p>{user.email}</p>
 
           <button onClick={() => onUpdate(user.id)}>
