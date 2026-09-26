@@ -46,6 +46,10 @@ const UserDetail = () => {
       <p>メール: {user.email}</p>
 
       <Link to="/users">ユーザー一覧に戻る</Link>
+
+      <Link to={`/users/${user.id}/edit`}>
+        編集
+      </Link>
     </div>
   );
 };

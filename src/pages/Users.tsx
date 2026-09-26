@@ -3,6 +3,7 @@ import { useUsers } from "../hooks/useUsers"
 import { Link } from "react-router-dom";
 import UserList from "../components/UserList";
 import UserForm from "../components/UserForm";
+import { useUserContext } from "../context/UserContext";
 
 const Users = () => {
   const {
@@ -18,6 +19,7 @@ const Users = () => {
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [formError, setFormError] = useState("");
+  const { name: loginUserName } = useUserContext();
 
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(name.toLowerCase())
@@ -47,6 +49,8 @@ const Users = () => {
   return (
     <div>
       <h1>ユーザー一覧</h1>
+
+      <p>ログインユーザー: {loginUserName}</p>
 
       <Link to="/">ホームへ</Link>
 
