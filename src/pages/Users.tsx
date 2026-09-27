@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUsers } from "../hooks/useUsers"
 import { Link } from "react-router-dom";
 import UserList from "../components/UserList";
 import UserForm from "../components/UserForm";
 import { useUserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Users = () => {
+  const navigate = useNavigate();
+
   const {
     users,
     loading,
@@ -15,11 +18,20 @@ const Users = () => {
     handleDeleteUser,
   } = useUsers();
 
+  const { user, logout } = useUserContext();
+
+  useEffect(() => {
+      if (!user) {
+        navigate("/login");
+      }
+    }, [user,navigate]);
+
+
   const [name, setName] = useState("");
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [formError, setFormError] = useState("");
-  const { name: loginUserName } = useUserContext();
+
 
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(name.toLowerCase())
@@ -50,7 +62,16 @@ const Users = () => {
     <div>
       <h1>ユーザー一覧</h1>
 
-      <p>ログインユーザー: {loginUserName}</p>
+      <p>ログインユーザー: {user?.name}</p>
+
+      <button
+        onClick={() => {
+          logout();
+          navigate("./login");
+        }}
+        >
+          ログアウト
+      </button>
 
       <Link to="/">ホームへ</Link>
 

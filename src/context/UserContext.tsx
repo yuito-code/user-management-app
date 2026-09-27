@@ -27,7 +27,7 @@ export const UserProvider = ({
   const [user, setUser] = useState<LoginUser | null>(null);
 
   const login = (user: LoginUser) => {
-    setUser(null);
+    setUser(user);
   };
   const logout = () => {
     setUser(null);
