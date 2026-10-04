@@ -53,5 +53,4 @@ const UserDetail = () => {
     </div>
   );
 };
-
 export default UserDetail;
