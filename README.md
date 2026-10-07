@@ -1,75 +1,93 @@
-# React + TypeScript + Vite
+React API Practice
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScriptを使用して作成したユーザー管理Webアプリケーションです。
 
-Currently, two official plugins are available:
+REST APIを利用して、ユーザー情報の取得・登録・更新・削除（CRUD）を実装しています。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+概要
 
-## React Compiler
+ReactでのAPI通信や状態管理、コンポーネント設計について学習することを目的として開発しました。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+開発を進める中で、API処理とUI処理を分離し、コンポーネントやカスタムフックを用いてコードを整理しています。
 
-## Expanding the ESLint configuration
+使用技術
+・ React
+・ TypeScript
+・ Vite
+・ REST API
+・ Fetch API
+・ Git / GitHub
+・ Visual Studio Code
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+主な機能
+・ ユーザー一覧の取得
+・ ユーザーの登録
+・ ユーザー情報の更新
+・ ユーザーの削除
+・ ユーザー検索
+・ ローディング表示
+・ エラー表示
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+ プロジェクト構成
+src/
+├── components/
+│   ├── UserForm.tsx
+│   └── UserList.tsx
+├── hooks/
+│   └── useUsers.ts
+├── services/
+│   └── userApi.ts
+├── types/
+│   └── index.ts
+└── App.tsx
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+設計・実装で意識した点
+API処理の分離
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+API通信の処理を services/userApi.ts にまとめ、UI側のコードと分離しています。
 
-```
+ components
+     ↓
+  useUsers
+     ↓
+  userApi
+     ↓
+    API
+コンポーネント分割
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+ユーザー一覧とユーザー登録フォームをそれぞれコンポーネントとして分離し、役割を整理しています。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+UserList.tsx：ユーザー一覧・更新・削除
+UserForm.tsx：ユーザー登録フォーム
+カスタムフック
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+useUsers.ts にユーザー情報の状態管理やAPI処理をまとめ、App.tsx の処理を整理しています。
 
-```
+TypeScript
+
+User 型やコンポーネントのPropsに型を定義し、型安全性を意識して実装しています。
+
+API
+
+JSONPlaceholderのREST APIを使用しています。
+
+GET：ユーザー取得
+POST：ユーザー登録
+PATCH：ユーザー更新
+DELETE：ユーザー削除
+
+今後の改善
+バリデーションの追加
+UI / UXの改善
+認証機能の追加
+実際のバックエンドAPIとの連携
+
+開発環境
+npm install
+npm run dev
+
+ブラウザで表示されたURLにアクセスしてください。
+
+GitHub
+
+https://github.com/yuito-code/react-api-practice
