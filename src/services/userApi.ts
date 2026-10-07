@@ -2,7 +2,7 @@ import type { User } from "../types";
 
 const API_URL = "https://jsonplaceholder.typicode.com/users";
 
-export const getUsers = async(): Promise<User> => {
+export const getUsers = async(): Promise<User[]> => {
   const response = await fetch(API_URL);
 
   if(!response.ok) {
