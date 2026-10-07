@@ -2,94 +2,84 @@
 
 <p align="center"> React + TypeScriptを使用して作成したユーザー管理Webアプリケーション </p>
 
-📌 概要
+<hr>
 
-REST APIを利用して、ユーザー情報の取得・登録・更新・削除（CRUD）を実装したWebアプリケーションです。
+<h2>📌 概要</h2>
 
-ReactでのAPI通信、状態管理、コンポーネント分割、カスタムフックなどを学習することを目的として開発しました。
+<p> REST APIを利用して、ユーザー情報の取得・登録・更新・削除（CRUD）を実装したWebアプリケーションです。 </p>
 
-🚀 使用技術
-技術	内容
-React	UI開発
-TypeScript	型安全な開発
-Vite	開発環境・ビルド
-Fetch API	API通信
-REST API	ユーザーデータの取得・操作
-Git / GitHub	バージョン管理
-✨ 主な機能
-👤 ユーザー一覧の取得
-➕ ユーザー登録
-✏️ ユーザー情報の更新
-🗑️ ユーザー削除
-🔍 ユーザー検索
-⏳ ローディング表示
-⚠️ エラー表示
-🛠️ 実装で意識した点
-1. API処理の分離
+<p> ReactでのAPI通信、状態管理、コンポーネント分割、カスタムフックなどを学習することを目的として開発しました。 </p>
 
-API通信の処理を services/userApi.ts にまとめ、UI側の処理と分離しました。
+<hr>
 
-UI
- ↓
-useUsers
- ↓
-userApi
- ↓
-REST API
-2. コンポーネント分割
+<h2>🚀 使用技術</h2>
 
-画面の役割に応じてコンポーネントを分割しています。
+<ul> <li><strong>React</strong>：UI開発</li> <li><strong>TypeScript</strong>：型安全な開発</li> <li><strong>Vite</strong>：開発環境・ビルド</li> <li><strong>Fetch API</strong>：API通信</li> <li><strong>REST API</strong>：ユーザーデータの取得・操作</li> <li><strong>Git / GitHub</strong>：バージョン管理</li> </ul>
 
-UserList.tsx：ユーザー一覧・更新・削除
-UserForm.tsx：ユーザー登録フォーム
-3. カスタムフック
+<hr>
 
-useUsers.ts を作成し、ユーザー情報の状態管理やAPI処理をまとめています。
+<h2>✨ 主な機能</h2>
 
-4. TypeScript
+<ul> <li>👤 ユーザー一覧の取得</li> <li>➕ ユーザー登録</li> <li>✏️ ユーザー情報の更新</li> <li>🗑️ ユーザー削除</li> <li>🔍 ユーザー検索</li> <li>⏳ ローディング表示</li> <li>⚠️ エラー表示</li> </ul>
 
-ユーザー情報やコンポーネントのPropsに型を定義し、型安全性を意識して実装しています。
+<hr>
 
-🌐 API
+<h2>🛠️ 実装で意識した点</h2>
 
-JSONPlaceholder のREST APIを使用しています。
+<h3>1. API処理の分離</h3>
 
-操作	HTTPメソッド
-ユーザー取得	GET
-ユーザー登録	POST
-ユーザー更新	PATCH
-ユーザー削除	DELETE
-💻 開発環境
-npm install
-npm run dev
+<p> API通信の処理を <code>services/userApi.ts</code> にまとめ、UI側の処理と分離しました。 </p>
 
-ローカル環境で起動後、ブラウザから表示されたURLにアクセスしてください。
+<pre> UI ↓ useUsers ↓ userApi ↓ REST API </pre>
 
-📂 プロジェクト構成
-src/
-├── components/
-│   ├── UserForm.tsx
-│   └── UserList.tsx
-├── hooks/
-│   └── useUsers.ts
-├── services/
-│   └── userApi.ts
-├── types/
-│   └── index.ts
-└── App.tsx
-🔗 Links
-GitHub
+<h3>2. コンポーネント分割</h3>
 
-<a href="https://github.com/yuito-code/react-api-practice"> https://github.com/yuito-code/react-api-practice </a>
+<p>画面の役割に応じてコンポーネントを分割しています。</p>
 
-Demo
+<ul> <li><code>UserList.tsx</code>：ユーザー一覧・更新・削除</li> <li><code>UserForm.tsx</code>：ユーザー登録フォーム</li> </ul>
 
-🚧 デプロイ後にURLを追加予定
+<h3>3. カスタムフック</h3>
 
-📚 今後の改善
-入力値のバリデーション
-UI / UXの改善
-認証機能の追加
-実際のバックエンドAPIとの連携
+<p> <code>useUsers.ts</code> を作成し、ユーザー情報の状態管理やAPI処理をまとめています。 </p>
 
-<p align="center"> <strong>React / TypeScript / REST API / GitHub</strong> </p>
+<h3>4. TypeScript</h3>
+
+<p> ユーザー情報やコンポーネントのPropsに型を定義し、型安全性を意識して実装しています。 </p>
+
+<hr>
+
+<h2>🌐 API</h2>
+
+<p> <strong>JSONPlaceholder</strong> のREST APIを使用しています。 </p>
+
+<ul> <li><strong>GET</strong>：ユーザー取得</li> <li><strong>POST</strong>：ユーザー登録</li> <li><strong>PATCH</strong>：ユーザー更新</li> <li><strong>DELETE</strong>：ユーザー削除</li> </ul>
+
+<hr>
+
+<h2>📂 プロジェクト構成</h2>
+
+<pre> src/ │ ├── components/ │ ├── UserForm.tsx │ └── UserList.tsx │ ├── hooks/ │ └── useUsers.ts │ ├── services/ │ └── userApi.ts │ ├── types/ │ └── index.ts │ └── App.tsx </pre>
+
+<h3>各フォルダの役割</h3>
+
+<ul> <li><strong>components</strong>：画面を構成するUIコンポーネント</li> <li><strong>hooks</strong>：カスタムフック・状態管理</li> <li><strong>services</strong>：API通信処理</li> <li><strong>types</strong>：TypeScriptの型定義</li> </ul>
+
+<hr>
+
+<h2>💻 開発環境</h2>
+
+<pre> npm install npm run dev </pre>
+
+<p> ローカル環境で起動後、ブラウザから表示されたURLにアクセスしてください。 </p>
+
+<hr>
+
+<h2>🔗 GitHub</h2>
+
+<p> <a href="https://github.com/yuito-code/react-api-practice"> https://github.com/yuito-code/react-api-practice </a> </p>
+
+<hr>
+
+<h2>📚 今後の改善</h2>
+
+<ul> <li>入力値のバリデーション</li> <li>UI / UXの改善</li> <li>認証機能の追加</li> <li>実際のバックエンドAPIとの連携</li> </ul>
