@@ -76,7 +76,7 @@
 
 <h2>🔗 GitHub</h2>
 
-<p> <a href="https://github.com/yuito-code/"> https://github.com/yuito-code/user-management-app</a> </p>
+<p> <a href="https://github.com/yuito-code/user-management-app"> https://github.com/yuito-code/user-management-app</a> </p>
 
 <hr>
 
