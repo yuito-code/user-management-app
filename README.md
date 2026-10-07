@@ -1,4 +1,4 @@
-<h1 align="center">React API Practice</h1>
+<h1 align="center">user-management-app</h1>
 
 <p align="center"> React + TypeScriptを使用して作成したユーザー管理Webアプリケーション </p>
 
