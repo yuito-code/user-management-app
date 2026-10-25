@@ -13,7 +13,6 @@ const Users = () => {
     loading,
     error,
     handleCreateUser,
-    handleUpdateUser,
     handleDeleteUser,
   } = useUsers();
 
@@ -139,7 +138,6 @@ const Users = () => {
 
           <UserList
             users={filteredUsers}
-            onUpdate={handleUpdateUser}
             onDelete={handleDeleteUser}
           />
         </section>
