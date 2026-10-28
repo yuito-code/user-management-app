@@ -81,7 +81,11 @@ const EditUser = () => {
         <button type="submit">保存</button>
       </form>
 
-      <Link to={`/users/${user?.id}`}>詳細に戻る</Link>
+      <Link to={`/users/${user?.id}`}>詳細画面へ</Link>
+
+      <p className="mt-4 text-lg text-red-500">
+        ただいま改装中になります!
+      </p>
     </div>
   );
 };
